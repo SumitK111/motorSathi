@@ -20,4 +20,34 @@ const createPolicy = async (data) => {
     }
 }
 
-module.exports = {createPolicy}
+const getAllPolicy = async (userId,page,limit) =>{
+    try {
+        const offset = (page-1)*limit
+        console.log(userId,page,limit);
+        
+        const policyList = await Policy.findAndCountAll({
+            where:{
+                createdBy:userId,
+            },
+            order:[
+                ["createdAt","DESC"]
+            ],
+            offset:offset,
+            limit:limit,
+            
+        })
+// console.log("PPPPP",policyList);
+
+        return {
+            status:true,
+            message:"Reports fatched successfully!!",
+            data:policyList
+        } 
+    } catch (error) {
+        console.log();
+        
+    }
+}
+
+getAllPolicy(1,1,5)
+module.exports = {createPolicy,getAllPolicy}

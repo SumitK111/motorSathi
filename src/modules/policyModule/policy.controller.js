@@ -1,4 +1,4 @@
-const {createPolicy} = require("./policy.service")
+const {createPolicy,getAllPolicy} = require("./policy.service")
 const {upload,cloudinary} = require("../../utils/upload")
 const fs = require("fs")
 
@@ -17,6 +17,23 @@ exports.doCreatePolicy = async (req,res) => {
         
     }
 }
+
+exports.doGetAllPolicy = async (req,res) => {
+  try {
+      const {page=1,limit = 10} = req.query
+      const userId = req.user.id
+      const resp = await getAllPolicy(userId,page,limit)
+      if(resp.status === true){
+          return res.status(201).json(resp)
+      }else{
+          return res.status(400).json(resp)
+      }
+  } catch (error) {
+      console.log(error);
+      
+  }
+}
+
 
 
 exports.doUploadPdf = async (req,res) =>{
