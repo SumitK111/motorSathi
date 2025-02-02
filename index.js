@@ -8,7 +8,7 @@ app.use(express.json())
 
 
 app.use("/user",userRouter)
-app.use("policy",policyRouter)
+app.use("/policy",policyRouter)
 
 const port = process.env.PORT || 2000
 app.listen(port,()=>{
