@@ -23,7 +23,7 @@ const createPolicy = async (data) => {
 const getAllPolicy = async (userId,page,limit) =>{
     try {
         const offset = (page-1)*limit
-        console.log(userId,page,limit);
+        // console.log(userId,page,limit);
         
         const policyList = await Policy.findAndCountAll({
             where:{
