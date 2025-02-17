@@ -36,7 +36,7 @@ exports.dologinUser = async (req,res)=>{
         const resp = await loginUser(req.body)
       
         if(resp.status === true){
-            return res.status(201).json(resp)
+            return res.status(200).json(resp)
         }else{
             return res.status(400).json(resp)
         }
