@@ -45,7 +45,7 @@ const loginUser = async (data) => {
         const token = await generateToken(userData.toJSON())
 
         return {
-            status:false,
+            status:true,
             message:"User Logged in Successfully!!",
             data:{token:token,name:userData.name}
         }
