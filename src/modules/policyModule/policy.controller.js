@@ -39,6 +39,7 @@ exports.doGetAllPolicy = async (req,res) => {
 exports.doUploadPdf = async (req,res) =>{
     try {
         
+        
        await upload.single("pdf")(req, res, async (err) => {
             if (err) {
               if (err.code === "LIMIT_FILE_SIZE") {
@@ -48,21 +49,22 @@ exports.doUploadPdf = async (req,res) =>{
             }
         
             if (!req.file) return res.status(400).json({ message: "No file uploaded!" });
-        
+            console.log(req.file);
             try {
               // Upload file to Cloudinary
               const result = await cloudinary.uploader.upload(req.file.path, {
                 folder: "pdf_uploads",
                 resource_type: "raw",
               });
+        console.log(result);
         
               // Delete local file after upload
               fs.unlinkSync(req.file.path);
         
-              res.status(200).json({ message: "File uploaded successfully!", fileUrl: result.secure_url });
+              res.status(200).json({status:true, message: "File uploaded successfully!", fileUrl: result.secure_url });
             } catch (error) {
                 console.log(error);
-              res.status(500).json({ message: "Upload failed", error });
+              res.status(500).json({status:false, message: "Upload failed", error });
             }
           });
 

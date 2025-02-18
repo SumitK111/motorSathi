@@ -138,12 +138,12 @@ const Policy = sequelize.define("Policy", {
   financer_name: {
     type: DataTypes.STRING,
   },
-  // vehicleType:{
-  //     type:DataTypes.STRING
-  // },
-  // vehicleType:{
-  //     type:DataTypes.STRING
-  // },
+  vehicleType:{
+      type:DataTypes.STRING
+  },
+  vehicleType:{
+      type:DataTypes.STRING
+  },
 });
 
 //  sequelize.sync({force:true})

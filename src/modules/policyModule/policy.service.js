@@ -2,6 +2,8 @@ const Policy = require("./policy.model")
 
 const createPolicy = async (data) => {
     try {
+        console.log(data);
+        
         const resp = await Policy.create(data)
 
         return {

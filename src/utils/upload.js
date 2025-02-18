@@ -21,7 +21,14 @@ cloudinary.config({
     storage: storage,
     limits: { fileSize: 500 * 1024 }, // 5MB size limit
     fileFilter: (req, file, cb) => {
-      if (file.mimetype !== "application/pdf") {
+      const allowedMimetypes = [
+        "application/pdf",     // PDF files
+        "image/jpeg",          // JPEG images
+        "image/png",           // PNG images
+        "image/gif",           // GIF images
+        "image/webp",          // WebP images (if needed)
+      ];
+      if (!allowedMimetypes.includes(file.mimetype)) {
         return cb(new Error("Only PDF files are allowed!"), false);
       }
       cb(null, true);
