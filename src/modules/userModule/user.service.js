@@ -1,4 +1,5 @@
-const User = require("./user.model")
+// const User = require("./user.model")
+const {User} = require("../../models")
 const {generateToken} = require("../../utils/userAuth")
 
 

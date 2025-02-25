@@ -22,7 +22,8 @@ exports.doGetAllPolicy = async (req,res) => {
   try {
       const {page=1,limit = 10} = req.query
       const userId = req.user.id
-      const resp = await getAllPolicy(userId,page,limit)
+      const role = req.user.role
+      const resp = await getAllPolicy(userId,role,page,limit)
       if(resp.status === true){
           return res.status(201).json(resp)
       }else{
