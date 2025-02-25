@@ -42,7 +42,16 @@ const getAllPolicy = async (userId, userRole, page, limit) => {
 
     // })
     // console.log(userId, userRole, page, limit);
-
+    const user = await User.findByPk(userId);
+    // console.log("UUUUUUUUUUUUUU",user);
+    
+    if(!user){
+        return {
+            status: false,
+            message: "User not registered!!",
+            data: [],
+          }; 
+    }
     let policies;
     if (userRole === "admin") {
       // Admin can see all policies
@@ -54,11 +63,11 @@ const getAllPolicy = async (userId, userRole, page, limit) => {
         offset: offset,
         limit: limit,
       });
-    //   console.log("PPPPPPPPP====>>>",policies);
+    
       
     } else {
       // For others, filter based on the parent-child relationship
-      const user = await User.findByPk(userId);
+    
       let condition = {};
 
       if (userRole === "dealer") {
@@ -80,7 +89,7 @@ const getAllPolicy = async (userId, userRole, page, limit) => {
         limit: limit,
       });
     }
-
+    // console.log("PPPPPPPPP====>>>",policies);
     // res.status(200).json({ policies });
 
     return {
@@ -89,7 +98,7 @@ const getAllPolicy = async (userId, userRole, page, limit) => {
       data: policies,
     };
   } catch (error) {
-    console.log();
+    console.log(error);
   }
 };
 
