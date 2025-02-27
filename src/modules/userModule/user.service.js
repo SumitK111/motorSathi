@@ -1,5 +1,5 @@
 // const User = require("./user.model")
-const {User} = require("../../models")
+const {User,Place} = require("../../models")
 const {generateToken} = require("../../utils/userAuth")
 
 
@@ -59,4 +59,27 @@ const loginUser = async (data) => {
     }
 }
 
-module.exports = {createUser,loginUser}
+
+const getPlace = async (condition)=>{
+    try {
+        let data
+       if(condition.parent){
+        data = await Place.findOne({where:{name:condition.parent}})
+        console.log(data);
+        
+        condition.parent = data.id
+       }
+      
+        const resp = await Place.findAll({where:condition,order:[['name','ASC']]})
+        return {
+            status:true,
+            message:"Data find Successfully!!",
+            data:resp
+        }
+    } catch (error) {
+        console.log(error);
+        
+    }
+}
+
+module.exports = {createUser,loginUser,getPlace}

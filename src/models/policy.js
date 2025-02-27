@@ -32,6 +32,9 @@ module.exports = (sequelize, DataTypes) => {
       customerGender: {
         type: DataTypes.STRING,
       },
+      customerAadharNumber: {
+        type: DataTypes.STRING,
+      },
       customerAadhar_f: {
         type: DataTypes.STRING,
       },

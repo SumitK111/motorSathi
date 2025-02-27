@@ -1,4 +1,4 @@
-// const Policy = require("./policy.model");
+// const Policys = require("./policy.model");
 // const User = require("../userModule/user.model");
 const {User,Policy} = require("../../models")
 const { Op } = require("sequelize");

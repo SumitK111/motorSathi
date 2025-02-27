@@ -1,4 +1,4 @@
-const {createUser,loginUser} = require("./user.service")
+const {createUser,loginUser,getPlace} = require("./user.service")
 const {createUserVal} = require("./user.validator")
 
 
@@ -16,7 +16,7 @@ exports.doCreateUser = async (req,res)=>{
           return res
             .status(400)
             .json({ status: false, message: validate?.error?.details[0]?.message });
-            
+
             data["addedBy"] = req.user.id
         const resp = await createUser(data)
       
@@ -35,6 +35,27 @@ exports.dologinUser = async (req,res)=>{
     try {
        
         const resp = await loginUser(req.body)
+      
+        if(resp.status === true){
+            return res.status(200).json(resp)
+        }else{
+            return res.status(400).json(resp)
+        }
+    } catch (error) {
+        console.log(error);
+        
+    }
+}
+
+exports.doGetPlace = async (req,res)=>{
+    try {
+       const {type,parent} = req.query
+
+       const condition = {
+        ...(type && {type:type}),
+        ...(parent && {parent:parent})
+       }
+        const resp = await getPlace(condition)
       
         if(resp.status === true){
             return res.status(200).json(resp)
